@@ -16,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -30,8 +31,6 @@ fun HomeView(
     navController: NavController,
     viewModel: WishViewModel
 ){
-    val context = LocalContext.current
-
     Scaffold(
         topBar = {
             AppBarView(title = "WhishList")
@@ -42,17 +41,20 @@ fun HomeView(
                 contentColor = Color.White,
                 containerColor = Color.Black,
                 onClick = {
-                    navController.navigate(Screen.AddScreen.route)
+                    navController.navigate(Screen.AddScreen.route + "/0L")
                 }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
         }
     ) {
+        val wishList= viewModel.getAllWishes.collectAsState(initial = listOf())
         LazyColumn(modifier = Modifier
             .fillMaxSize()
             .padding(it) ){
-            items(DummyWish.whishList){
+            items(wishList.value){
                 wish -> WishItem(wish = wish) {
+                    val id = wish.id
+                navController.navigate(Screen.AddScreen.route+"/$id")
                 }
             }
         }
