@@ -53,8 +53,7 @@ fun HomeView(
             .padding(it) ){
             items(DummyWish.whishList){
                 wish -> WishItem(wish = wish) {
-                
-            }
+                }
             }
         }
     }
