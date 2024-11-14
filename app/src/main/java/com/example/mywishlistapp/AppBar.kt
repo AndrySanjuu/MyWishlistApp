@@ -21,9 +21,14 @@ fun AppBarView(
 ){
 
     val navigationIcon : (@Composable () -> Unit)? = {
-        IconButton(onClick = { onBackNavClicked() }) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack , contentDescription = "ArrowBack", tint = Color.White)
+        if (!title.contains("WhishList")){
+            IconButton(onClick = { onBackNavClicked() }) {
+                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack , contentDescription = "ArrowBack", tint = Color.White)
+            }
+        } else{
+            null
         }
+
     }
     
 
